@@ -3,15 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Inicio extends CI_Controller {
 
-
+	// Carga la página principal. 
 	public function index()
 	{	
 
 		$this->load->helper('form');
-		$this->load->view('inicio');
+		$this->load->model('atenciones');
+		$data['cantidad_datos'] = $this->atenciones->get_all_rows();	
+		$this->load->view('inicio',$data);
 	}
 
 
+	// Carga los datos del archivo CSV a la base de datos prueba_eclass. 
 	public function  importar(){
 
 		//Cargar librería upload con los siguientes parámetros
@@ -26,9 +29,7 @@ class Inicio extends CI_Controller {
 		
 
 		
-		$filename = $_FILES['archivo_csv']['name'];
-
-		
+		$filename = $_FILES['archivo_csv']['name'];	
 		// En el caso  que se suba un archivo repetido se elimina el anterior. 
 		if (!empty($filename)) {
 			if (file_exists('./uploads/'.$filename)){
@@ -40,7 +41,7 @@ class Inicio extends CI_Controller {
 		 if (!$this->upload->do_upload('archivo_csv'))
         {
         	$error = array('error' => $this->upload->display_errors());
-            $this->load->view('debug', $error);
+            //$this->load->view('debug', $error);
             //var_dump($error);
         }
 
@@ -59,9 +60,15 @@ class Inicio extends CI_Controller {
 
 
         	// Se lee cada registro del archivo CSV.
+
+        	// Se agrega esta linea para leer 
+        	$flag_first = true;
         	while (($data = fgetcsv($handle, 1000, ";")) !== FALSE)
              {
-             	
+             	if ($flag_first){
+             		$flag_first = false;
+             		continue;
+             	}
 
              	// code  por si se desea agregar los registros por medio de batchs---
 		        array_push($data_batch,array(
@@ -78,7 +85,6 @@ class Inicio extends CI_Controller {
 
 		        // Se agrega este limitador ya que agregar todos los registros en un lote genera desborde de memoria permitida en php. 
                 if (count($data_batch) > $limitador_batch){
-
                 	$this->atenciones->insert_atenciones_batch($data_batch);
              		$data_batch = array();
              	}
@@ -94,12 +100,52 @@ class Inicio extends CI_Controller {
 
 
              }
+
+             if (count($data_batch) > 0){
+                	$this->atenciones->insert_atenciones_batch($data_batch);
+             		$data_batch = array();
+             }
         }
 
-        
-		//$data['name'] =  "Felipe";
-		//$this->load->view('debug',$data);
+		$data['cantidad_datos'] = $this->atenciones->get_all_rows();	
+		$this->load->view('inicio',$data);
 	}
-}
 
+
+	// Carga y procesa los datos para generar  la vista referente  a la calificación de empleados.
+
+	/*Para observar qué coordinadora es mejor, se propusieron 3 criterios:
+			Criterio 1: Cantidad de atenciones realizadas en el mes.
+			Criterio 2: Cantidad de atenciones realizadas en promedio considerando los días trabajados.
+			Criterio 3: Cantidad de atenciones realizadas en promedio considerando los productos atendidos.*/
+	public function calificacion_empleados(){
+		$this->load->model('atenciones');
+		$criterios = array(1,2,3);
+
+		//Se agrega a la  variable $atenciones, la información del mejor y peor registro considerando  los 3 criterios.
+		foreach ($criterios as $criterio) {
+			for ($i = 1; $i <= 12; $i++){
+				$atenciones[$i] = $this->atenciones->get_detalle_atenciones_mes($i,$criterio);
+			}
+			$data['atenciones'][$criterio] = $atenciones;
+			
+		}
+
+		$data['meses'] = $this->atenciones->get_meses_maximos();
+		$this->load->view('vista_1',$data);
+	}
+
+
+
+
+	// Carga y procesa los datos para generar la vista referente a la relación entre cantidad de atenciones y cantidad de  coordinadoras. 
+	public function coordinadoras_asignadas_cantidad(){
+		$this->load->model('atenciones');
+		$data['registros'] = $this->atenciones->get_cantidad_asociadas_productos_atenciones();
+		$this->load->view('vista_2',$data);
+	}
+
+
+
+}
 ?>
