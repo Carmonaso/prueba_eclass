@@ -18,12 +18,13 @@
   El segundo método es un gráfico lineal que  muestra la relación entre la cantidad de atenciones v/s la cantida de coordinadoras.
   El tercer método es un bubble chart que muestra los productos y la cantidad de coordinadoras. El tamaño de las burbujas índica una relación de la cantidad de atenciones.
  -->
-  <h1>Vista 2: Coordinadoras asignadas y cantidad de atenciones</h1>
+  
 
 
 
 <!--Código para observara la tabla -->
   <div class="container"> 
+  <h1>Vista 2: Coordinadoras asignadas y cantidad de atenciones</h1>
   <h3> Datos en tabla </h3>
   <table class="table">
     <thead>
@@ -49,7 +50,7 @@
 
     </tbody>
     </table>
-
+</div>
 
 
 <!--Contenedor del gráfico de Linea -->
@@ -66,7 +67,7 @@
 
 
 
-</div>
+
 
 
 

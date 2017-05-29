@@ -14,15 +14,8 @@
 
 
 <body>
-
-<h1>Vista 1: Mejores y peores empleados por mes</h1>
-
-
-<!-- Para observar qué coordinadora es mejor, se propusieron 3 criterios:
-Criterio 1: Cantidad de atenciones realizadas en el mes.
-Criterio 2: Cantidad de atenciones realizadas en promedio considerando los días trabajados.
-Criterio 3: Cantidad de atenciones realizadas en promedio considerando los productos atendidos.
--->
+<div class="container">
+  <h1>Vista 1: Mejores y peores coordinadoras por mes</h1>  
 
 
 <!-- Por cada criterio se hace una tabla distinta. -->
@@ -31,43 +24,81 @@ Criterio 3: Cantidad de atenciones realizadas en promedio considerando los produ
   foreach ($criterios as $criterio){
     ?> 
 
+
     <div class="container"> 
 
     <?php
 
     if ($criterio  == 1){
-      ?>  <h3>Criterio: Cantidad de atenciones realizadas</h3>    <?php
+      ?>  <h3><b>Criterio 1:</b> Cantidad de atenciones realizadas</h3>    <?php
     }
     elseif ($criterio == 2) {
-     ?> <h3>Criterio: Cantidad de atenciones realizadas en promedio considerando días trabajados</h3>    <?php 
+     ?> <h3><b>Criterio 2:</b> Cantidad de atenciones realizadas en promedio considerando días trabajados</h3>    <?php 
     }
 
     elseif ($criterio == 3) {
-      ?> <h3>Criterio: Cantidad de atenciones realizadas en promedio considerando productos atendidos</h3>    <?php 
+      ?> <h3><b>Criterio 3:</b> Cantidad de atenciones realizadas en promedio considerando productos atendidos</h3>    <?php 
     }
 
 
 
     ?>
-
-
-
     <table class="table">
     <thead>
       <tr>
         <th>Calificación</th>
-        <th>Enero</th>
-        <th>Febrero</th>
-        <th>Marzo</th>
-        <th>Abril</th>
-        <th>Mayo</th>
-        <th>Junio</th>
-        <th>Julio</th>
-        <th>Agosto</th>
-        <th>Septiembre</th>
-        <th>Octubre</th>
-        <th>Noviembre</th>
-        <th>Diciembre</th>
+
+        <?php foreach ($meses as $mes) {
+          if ($mes['mes']==1){
+            ?>  <th>Enero</th> <?php    
+          }
+
+          elseif ($mes['mes']==2) {
+            ?> <th>Febrero</th>   <?php
+          }
+
+
+          elseif ($mes['mes']==3) {
+            ?> <th>Marzo</th>   <?php
+          }
+          
+          elseif ($mes['mes']==4) {
+            ?><th>Abril</th>   <?php
+          }
+
+          elseif ($mes['mes']==5) {
+            ?><th>Mayo</th>   <?php
+          }
+
+          elseif ($mes['mes']==6) {
+            ?><th>Junio</th>   <?php
+          }
+
+          elseif ($mes['mes']==7) {
+            ?><th>Julio</th>   <?php
+          }
+
+          elseif ($mes['mes']==8) {
+            ?><th>Agosto</th>   <?php
+          }
+
+          elseif ($mes['mes']==9) {
+            ?><th>Septiembre</th>   <?php
+          }
+
+          elseif ($mes['mes']==10) {
+            ?><th>Octubre</th>   <?php
+          }
+
+          elseif ($mes['mes']==11) {
+            ?><th>Noviembre</th>   <?php
+          }
+
+          elseif ($mes['mes']==12) {
+            ?><th>Diciembre</th>   <?php
+          }
+        } ?>
+        
       </tr>
     </thead>
 
@@ -80,7 +111,7 @@ Criterio 3: Cantidad de atenciones realizadas en promedio considerando los produ
     <tr>
       <td class="success"><b> ID Mejor  Coordinadora</b> </td>
       <?php for($i=1; $i<=12; $i++){
-        if (!empty($atenciones[$i])){?>
+        if (!empty($atenciones[$criterio][$i])){?>
         <td class="success">  <?php echo  $atenciones[$criterio][$i][0]['id_coordinadora_crm'];?></td>
       <?php }
         else{?>
@@ -94,7 +125,7 @@ Criterio 3: Cantidad de atenciones realizadas en promedio considerando los produ
      <tr>
       <td class="danger"><b> ID Peor Coordinadora </b> </td>
       <?php for($i=1; $i<=12; $i++){
-        if (!empty($atenciones[$i])){?>
+        if (!empty($atenciones[$criterio][$i])){?>
         <td class="danger">  <?php echo  $atenciones[$criterio][$i][1]['id_coordinadora_crm'];?></td>
       <?php }
         else{?>
@@ -109,6 +140,21 @@ Criterio 3: Cantidad de atenciones realizadas en promedio considerando los produ
   }
 
 ?>
+
+
+
+
+</div>
+
+
+
+<!-- Para observar qué coordinadora es mejor, se propusieron 3 criterios:
+Criterio 1: Cantidad de atenciones realizadas en el mes.
+Criterio 2: Cantidad de atenciones realizadas en promedio considerando los días trabajados.
+Criterio 3: Cantidad de atenciones realizadas en promedio considerando los productos atendidos.
+-->
+
+
 
  </body>
 </html>
