@@ -31,17 +31,22 @@
 
   <div class="panel panel-default">
       <div class="panel-body">
-      <b>Análisis:</b> En  la <b>tabla datos</b>, se observa que los primeros productos con más atenciones poseen distintas cantidades de coordinadoras asignadas, es decir, si bien el primero  presenta 21 coordinadoras, se peude observar que el segundo producto con más atenciones posee solamente  1 coordinadora. Luego si se observa el tercero y el cuarto, sucede el mismo fenómeno.
+      <b>Análisis:</b> En  la <b>tabla datos</b>, se observa que los primeros productos con más atenciones poseen distintas cantidades de coordinadoras asignadas, es decir, si bien el primero  presenta 21 coordinadoras, se puede evidenciar que el segundo producto con más atenciones posee solamente  1 coordinadora. Luego si se observa el tercero y el cuarto, sucede el mismo fenómeno.
 
+      <br>
       <br>
       Luego si se observa el <b>gráfico de linea</b>, se evidencia que a medida que el número de atenciones aumenta (eje x), la cantidad de coordinadoras (eje y) no necesariamente aumenta, por lo que no se aprecia una relación de proporcionalidad entre estas variables.
 
       <br>
+      <br>
       Por otro lado, si se considera cada burbuja como un producto, la altura de la burbuja como la cantidad de coordinadoras y el tamaño de las burbujas como la cantidad de atenciones que tiene ese producto, se puede observar que las burbujas con más atenciones no siempre tienen una gran cantidad de coordinadoras (ejemplo, producto 5 y 21).
-      </div>
+      
 
       <br> 
+      <br> 
       <b>Como conclusión o ayuda, apoyándose en los gráficos y tablas, se puede decir que no existe una relación proporcional entre la cantidad de coordinadoras asignadas y la cantidad de atenciones realizadas, es decir, entre  más coordinadoras tenga el producto no necesariamente tendrá más atenciones. </b>
+
+      </div>
   </div>
 
 
